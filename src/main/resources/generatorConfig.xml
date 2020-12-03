@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE generatorConfiguration
+        PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN"
+        "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
+
+<generatorConfiguration>
+    <!--数据库的JDBC驱动，换成你自己的驱动位置-->
+    <!--<classPathEntry location="/Program Files/IBM/SQLLIB/java/db2java.zip" />-->
+
+    <!--一个数据库一个context-->
+    <context id="DB2Tables" targetRuntime="MyBatis3">
+
+        <!--逆向生成bean、dao时是否生成注释,一下这样配置不生成-->
+        <commentGenerator>
+            <property name="suppressAllComments" value="true"/>
+        </commentGenerator>
+        
+        <!--数据库jdbc连接-->
+        <jdbcConnection driverClass="com.mysql.jdbc.Driver"
+                        connectionURL="jdbc:mysql://localhost:3306/ssm_crud?useSSL=false&amp;serverTimezone=Asia/Shanghai"
+                        userId="root"
+                        password="123456">
+        </jdbcConnection>
+
+        <!--类型转换-->
+        <javaTypeResolver >
+            <!--是否使用bigDecimal,false可自动转化以下类型(Long,Integer,Short)-->
+            <property name="forceBigDecimals" value="false" />
+        </javaTypeResolver>
+
+        <!--指定生成实体类位置-->
+        <javaModelGenerator targetPackage="com.chentao.study.bean" targetProject=".\src\main\java">
+            <!--是否让schema作为包的后缀-->
+            <property name="enableSubPackages" value="true" />
+            <!--从数据库返回的值去掉前后空格-->
+            <property name="trimStrings" value="true" />
+        </javaModelGenerator>
+
+        <!--指定sql映射文件存放地址-->
+        <sqlMapGenerator targetPackage="mapper"  targetProject=".\src\main\resources">
+            <property name="enableSubPackages" value="true" />
+        </sqlMapGenerator>
+
+        <!--生成接口Dao位置-->
+        <javaClientGenerator type="XMLMAPPER" targetPackage="com.chentao.study.dao"  targetProject=".\src\main\java">
+            <property name="enableSubPackages" value="true" />
+        </javaClientGenerator>
+
+        <!--table指定每个表的生成策略-->
+        <table tableName="tbl_emp" domainObjectName="Employee"/>
+        <table tableName="tbl_dept" domainObjectName="Department"/>
+
+
+    </context>
+</generatorConfiguration>
